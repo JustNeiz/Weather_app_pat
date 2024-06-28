@@ -2,6 +2,8 @@ import {apiService} from "./apiService.ts";
 import {IWeatherRequestQueryData} from "../types/WeatherRequestQueryData.interface.ts";
 import {IWeatherRequestQueryShortData} from "../types/WeatherRequestQueryShortData.interface.ts";
 import {format} from "@formkit/tempo";
+import {AxiosResponse} from "axios";
+import {IFullResponse} from "../types/FullResponse.interface.ts";
 
 
 const query : IWeatherRequestQueryData = {
@@ -47,7 +49,11 @@ const generateUrl = (
     }
 };
 export const forecastService = {
-    forecast_tomorrow: async ()=> {
-        return await apiService.get(generateUrl('tomorrow', query)).then(response => response)
+    forecast_tomorrow: async () => {
+        const response: AxiosResponse<IFullResponse> = await apiService.get(generateUrl('tomorrow', query));
+        return response.data;
+    },
+    forecast_today: async () : Promise<AxiosResponse<IFullResponse>> => {
+        return await apiService.get(generateUrl('today', query)).then(res => res)
     }
 }
