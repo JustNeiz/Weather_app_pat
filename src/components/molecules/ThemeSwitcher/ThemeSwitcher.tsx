@@ -1,11 +1,14 @@
-import React from 'react';
+import { Switch } from '@mantine/core';
+import { IconSun } from '@tabler/icons-react';
+import { IconMoon } from '@tabler/icons-react';
 
-import css from './ThemeSwitcher.module.css'
 const ThemeSwitcher = () => {
+    const iconMoon = <IconMoon/>
+    const iconSun = <IconSun/>
     return (
-        <div className={css.ThemeSwitcher}>
+        <Switch onLabel={iconMoon} offLabel={iconSun} size='lg'
 
-        </div>
+        />
     );
 };
 

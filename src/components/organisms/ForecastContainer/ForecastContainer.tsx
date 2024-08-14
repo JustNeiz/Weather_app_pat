@@ -1,16 +1,18 @@
-import React from 'react';
+import { Flex } from "@mantine/core";
+import ForecastDurationSelect from "../../molecules/ForecastDurationSelect/ForecastDurationSelect";
+import ForecastsShort from "../../molecules/ForecastsShort/ForecastsShort";
+import { useForecastDuration } from "../../../store/useForecastDuration";
+import DailyForecast from "../../molecules/DailyForecast/DailyForecast";
 
-import css from './ForecastContainer.module.css'
-import ForecastSelector from "../ForecastSelector/ForecastSelector.tsx";
-import ForecastsShort from "../ForecastsShort/ForecastsShort.tsx";
 const ForecastContainer = () => {
-    return (
-        <div className={css.ForecastContainer}>
-            <ForecastSelector/>
-            <ForecastsShort/>
-
-        </div>
-    );
+  const {intervalEnd, intervalStart} = useForecastDuration();
+  return (
+    <Flex direction='column'>
+      <ForecastDurationSelect/>
+      {intervalEnd === intervalStart ? <DailyForecast/> : <ForecastsShort/> }
+      
+    </Flex>
+  );
 };
 
 export default ForecastContainer;

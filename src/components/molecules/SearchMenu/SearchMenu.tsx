@@ -1,13 +1,13 @@
-import React from 'react';
-
-import css from './SearchMenu.module.css'
-import SearchForm from "../../atoms/SearchForm/SearchForm.tsx";
+import { Flex } from '@mantine/core';
+import CurrentCity from '../../atoms/CurrentCity/CurrentCity';
+import SearchAutocomplete from '../../atoms/SearchAutocomplete/SearchAutocomplete';
 
 const SearchMenu = () => {
     return (
-        <div className={css.SearchMenu}>
-            <SearchForm/>
-        </div>
+        <Flex justify="space-between" align="center">
+            <CurrentCity/>
+            <SearchAutocomplete/>
+        </Flex>
     );
 };
 

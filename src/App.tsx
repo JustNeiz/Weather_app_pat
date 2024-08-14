@@ -1,12 +1,15 @@
-import './App.css'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./App.css";
 import MainPage from "./pages/mainPage.tsx";
 
+const client = new QueryClient();
 function App() {
 
-
   return (
-      <MainPage/>
-  )
+    <QueryClientProvider client={client}>
+      <MainPage />
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
