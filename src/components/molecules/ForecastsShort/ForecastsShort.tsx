@@ -18,7 +18,7 @@ const ForecastsShort = () => {
   const { city } = useCurrentCity();
 
   const { data } = useQuery<IWeeklyResponse>({
-    queryKey: ["weeklyForecast", coordinates, intervalEnd, intervalStart],
+    queryKey: ["weeklyForecast", coordinates, intervalEnd, intervalStart, city],
     queryFn: () =>
       forecastService(
         intervalStart as string,
@@ -37,7 +37,7 @@ const ForecastsShort = () => {
     <Flex justify="space-between">
       {data?.daily?.time?.map((date, index) => {
         const dayData = {
-          date: formattedDatesArray?.[index],
+          date: formattedDatesArray?.[index] as string,
           temperature: data?.daily?.temperature_2m_max[index],
           weatherCode: data?.daily?.weather_code[index],
           apparentTemperature: data?.daily?.apparent_temperature_max[index],

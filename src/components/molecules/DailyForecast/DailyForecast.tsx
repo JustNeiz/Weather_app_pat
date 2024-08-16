@@ -41,10 +41,10 @@ const DailyForecast = () => {
       <Flex justify="space-between">
         {data?.hourly?.time?.map((date, index) => {
           const hourData = {
-            date: formattedDatesArray?.[index],
-            time: formattedTimesArray?.[index],
+            date: formattedDatesArray?.[index] as string,
+            time: formattedTimesArray?.[index] as string,
             temperature_2m: data?.hourly?.temperature_2m[index],
-            weather_code: data?.hourly?.weather_code[index],
+            weather_code: `${data?.hourly?.weather_code[index]}`,
             relative_humidity_2m: data?.hourly.relative_humidity_2m[index],
             apparent_temperature: data?.hourly?.apparent_temperature[index],
             precipitation_probability:

@@ -23,8 +23,6 @@ const SearchAutocomplete = () => {
     enabled: !!debouncedValue,
   });
 
-  console.log(data?.results);
-
   useEffect(() => {
     if (data && data.results) {
       const cityObjects: ICity[] = Array.from(
@@ -34,7 +32,6 @@ const SearchAutocomplete = () => {
       setCitiesObjectsArr(cityObjects);
 
       const uniqueCities = cityObjects.map((item) => item.name);
-
       setCitiesArray(uniqueCities);
     } else {
       setCitiesArray([]);
@@ -42,39 +39,45 @@ const SearchAutocomplete = () => {
   }, [data]);
 
   const setLocalStorage = (city: ICityCoordinates) => {
-    if (localStorage.getItem("cities")) {
-      let citiesHistoryArray: ICityCoordinates[] = JSON.parse(
-        localStorage.getItem("cities"),
-      );
-      if (citiesHistoryArray.length > 19) {
-        citiesHistoryArray.pop();
-      }
-      if (!citiesHistoryArray.includes(city)) {
-        citiesHistoryArray.unshift(city);
-      } else {
-        citiesHistoryArray = citiesHistoryArray.filter((item) => item !== city);
-        citiesHistoryArray.unshift(city);
-        console.log(citiesHistoryArray);
-      }
-      localStorage.setItem("cities", JSON.stringify(citiesHistoryArray));
+    const citiesHistory = localStorage.getItem("cities");
+
+    let citiesHistoryArray: ICityCoordinates[] = citiesHistory
+      ? JSON.parse(citiesHistory)
+      : [];
+
+    if (citiesHistoryArray.length > 19) {
+      citiesHistoryArray.pop();
+    }
+
+    if (!citiesHistoryArray.includes(city)) {
+      citiesHistoryArray.unshift(city);
     } else {
-      const citiesHistoryArray: ICityCoordinates[] = [city];
-      localStorage.setItem("cities", JSON.stringify(citiesHistoryArray));
+      citiesHistoryArray = citiesHistoryArray.filter((item) => item !== city);
+      citiesHistoryArray.unshift(city);
+    }
+
+    localStorage.setItem("cities", JSON.stringify(citiesHistoryArray));
+  };
+
+  const handleSelect = (item: string | null) => {
+    if (item) {
+      // Убедитесь, что item не null
+      setCity(item);
+      const cityObj: ICityCoordinates = {
+        city: item,
+        latitude: `${coordinates.lattitude}`,
+        longitude: `${coordinates.longitude}`,
+      };
+      setLocalStorage(cityObj);
     }
   };
 
-  const handleSelect = (item: string) => {
-    setCity(item);
-    const cityObj: ICityCoordinates = {
-      city: item,
-      latitude: `${coordinates.lattitude}`,
-      longitude: `${coordinates.longitude}`,
-    };
-    setLocalStorage(cityObj);
-  };
-
   useEffect(() => {
-    if (city === citiesObjectsArr[0]?.name) {
+    if (
+      city &&
+      citiesObjectsArr.length > 0 &&
+      city === citiesObjectsArr[0]?.name
+    ) {
       const cityCoordinates = {
         longitude: citiesObjectsArr[0].longitude,
         lattitude: citiesObjectsArr[0].latitude,
