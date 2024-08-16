@@ -42,7 +42,7 @@ const OtherCityCard: React.FC<IOtherCityProps> = (otherCityProps) => {
         </Text>
       </Flex>
       <Flex direction={"column"}>
-        <Image src={imagePath} w={50} h={50} />
+        <Image src={imagePath} w={50} h={50} alt={"image"} />
         <Text c="white" fz={22} ta="center" lh={1} fw={700} m={5}>
           {~~temperature_2m}°С
         </Text>

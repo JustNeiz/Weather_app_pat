@@ -91,7 +91,7 @@ const HourlyFullCard: React.FC<IHourlyProps> = ({ hourlyProps }) => {
           />
         </Flex>
         <Flex direction="column" m={5}>
-          <Image src={imagePath} w={75} h={75} />
+          <Image src={imagePath} w={75} h={75} alt={"image"} />
           <WeatherInfoText
             text={"Humidity, %"}
             data={`${relative_humidity_2m}`}

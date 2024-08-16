@@ -96,7 +96,7 @@ const DailyForecastFullCard: React.FC<DailyShortProps> = ({ dayData }) => {
           />
         </Flex>
         <Flex direction="column" m={5} w={100}>
-          <Image src={imagePath} w={75} h={75} />
+          <Image src={imagePath} w={75} h={75} alt={"image"} />
           <Flex mt={10}>
             <WeatherInfoText text={"Sunrise"} data={`${formatSunrise}`} />
           </Flex>
