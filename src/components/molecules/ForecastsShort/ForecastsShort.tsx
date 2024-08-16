@@ -8,26 +8,33 @@ import { format, parse } from "@formkit/tempo";
 import { IWeeklyResponse } from "../../../types/IWeeklyRespone";
 import { useCurrentDay } from "../../../store/useCurrentDay";
 import DailyForecastFullCard from "../DailyForecastFullCard/DailyForecastFullCard";
+import { useCurrentCity } from "../../../store/useCurrentCity.ts";
 
 const ForecastsShort = () => {
   const { coordinates } = useCoordinates();
   const { intervalStart, intervalEnd } = useForecastDuration();
   const isQueryEnabled = coordinates && intervalEnd;
   const { currentDay } = useCurrentDay();
+  const { city } = useCurrentCity();
 
   const { data } = useQuery<IWeeklyResponse>({
     queryKey: ["weeklyForecast", coordinates, intervalEnd, intervalStart],
-    queryFn: () => forecastService(intervalStart as string, intervalEnd as string, coordinates),
+    queryFn: () =>
+      forecastService(
+        intervalStart as string,
+        intervalEnd as string,
+        coordinates,
+      ),
     enabled: !!isQueryEnabled,
   });
 
   const formattedDatesArray = data?.daily?.time?.map((item) => {
     const parsedDate = parse(item, "YYYY-MM-DD", "en");
-    return format(parsedDate, "ddd DD MMM", 'en');
+    return format(parsedDate, "ddd DD MMM", "en");
   });
 
   return (
-    <Flex justify='space-between'>
+    <Flex justify="space-between">
       {data?.daily?.time?.map((date, index) => {
         const dayData = {
           date: formattedDatesArray?.[index],
@@ -38,19 +45,13 @@ const ForecastsShort = () => {
           sunset: data?.daily?.sunset[index],
           precipitation: data?.daily?.precipitation_probability_max[index],
           windSpeed: data?.daily?.wind_speed_10m_max[index],
-          windDirection: data?.daily?.wind_direction_10m_dominant[index]
+          windDirection: data?.daily?.wind_direction_10m_dominant[index],
         };
 
         return formattedDatesArray?.[index] === currentDay ? (
-          <DailyForecastFullCard
-            key={date}
-            dayData={dayData}
-          />
+          <DailyForecastFullCard key={date} dayData={dayData} />
         ) : (
-          <DailyForecastShortCard
-            key={date}
-            dayData={dayData}
-          />
+          <DailyForecastShortCard key={date} dayData={dayData} />
         );
       })}
     </Flex>

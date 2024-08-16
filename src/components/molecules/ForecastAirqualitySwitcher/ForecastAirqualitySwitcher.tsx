@@ -1,13 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import css from './ForecastAirqualitySwitcher.module.css'
+import css from "./ForecastAirqualitySwitcher.module.css";
 
 const ForecastAirqualitySwitcher = () => {
-    return (
-        <div className={css.ForecastAirqualitySwitcher}>
-
-        </div>
-    );
+  return <div className={css.ForecastAirqualitySwitcher}></div>;
 };
 
 export default ForecastAirqualitySwitcher;

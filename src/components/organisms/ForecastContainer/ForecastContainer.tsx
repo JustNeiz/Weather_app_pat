@@ -5,12 +5,11 @@ import { useForecastDuration } from "../../../store/useForecastDuration";
 import DailyForecast from "../../molecules/DailyForecast/DailyForecast";
 
 const ForecastContainer = () => {
-  const {intervalEnd, intervalStart} = useForecastDuration();
+  const { intervalEnd, intervalStart } = useForecastDuration();
   return (
-    <Flex direction='column'>
-      <ForecastDurationSelect/>
-      {intervalEnd === intervalStart ? <DailyForecast/> : <ForecastsShort/> }
-      
+    <Flex direction="column">
+      <ForecastDurationSelect />
+      {intervalEnd === intervalStart ? <DailyForecast /> : <ForecastsShort />}
     </Flex>
   );
 };

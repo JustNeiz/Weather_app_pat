@@ -2,6 +2,7 @@ import { Flex, Image, Text } from "@mantine/core";
 import { DailyShortProps } from "../../../types/DailyShortProps";
 import { weatherCodes } from "../../../constants/weatherCodesConstants";
 import { format } from "@formkit/tempo";
+import WeatherInfoText from "../../atoms/WeatherInfoText/WeatherInfoText.tsx";
 const DailyForecastFullCard: React.FC<DailyShortProps> = ({ dayData }) => {
   const {
     date,
@@ -23,7 +24,6 @@ const DailyForecastFullCard: React.FC<DailyShortProps> = ({ dayData }) => {
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
-
 
   const getWindDirection = (degree: number): string => {
     if (degree >= 0 && degree <= 11.25) return "N";
@@ -52,7 +52,7 @@ const DailyForecastFullCard: React.FC<DailyShortProps> = ({ dayData }) => {
 
   return (
     <Flex
-      w={250}
+      w={300}
       h={200}
       bg="#BBD6EC"
       direction="column"
@@ -85,38 +85,23 @@ const DailyForecastFullCard: React.FC<DailyShortProps> = ({ dayData }) => {
             {~~temperature}°С
           </Text>
           <Flex>
-
-          <Text c="#82939d" fz={14}>
-            Real feel:
-          </Text>
-          <Text c="black" fw={600}>
-            {~~apparentTemperature}°С
-          </Text>
+            <WeatherInfoText
+              text="Real feel"
+              data={`${~~apparentTemperature}°С`}
+            />
           </Flex>
-          <Text c="#82939d" fz={14}>
-            Wind: {getWindDirection(windDirection)},
-            <Text c="black" fw={600}>
-              {windSpeed} km/h
-            </Text>
-          </Text>
+          <WeatherInfoText
+            text={`Wind, km/h`}
+            data={`${getWindDirection(windDirection)}, ${windSpeed}`}
+          />
         </Flex>
         <Flex direction="column" m={5} w={100}>
           <Image src={imagePath} w={75} h={75} />
           <Flex mt={10}>
-            <Text c="#82939d" fz={14}>
-              Sunrise:
-            </Text>
-            <Text c="black" fw={600}>
-              {formatSunrise}
-            </Text>
+            <WeatherInfoText text={"Sunrise"} data={`${formatSunrise}`} />
           </Flex>
           <Flex>
-            <Text c="#82939d" fz={14}>
-              Sunset:
-            </Text>
-            <Text c="black" fw={600}>
-              {formatSunset}
-            </Text>
+            <WeatherInfoText text={"Sunset"} data={`${formatSunset}`} />
           </Flex>
         </Flex>
       </Flex>

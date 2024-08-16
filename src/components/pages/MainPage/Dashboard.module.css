@@ -1,8 +1,8 @@
-.Dashboard{
-    width: 100%;
-    background-color: #535bf2;
-    height: 92%;
-    border-bottom-right-radius: 25px;
-    border-bottom-left-radius: 25px;
-    display: flex;
+.Dashboard {
+  width: 100%;
+  background-color: #535bf2;
+  height: 92%;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+  display: flex;
 }

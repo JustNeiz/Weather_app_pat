@@ -26,6 +26,5 @@ export const weatherCodes = {
   86: "src/weatherIcons/free-icon-snowflake-13370567.png",
   95: "src/weatherIcons/free-icon-storm-14838448.png",
   96: "src/weatherIcons/free-icon-storm-14838448.png",
-  99: "src/weatherIcons/free-icon-storm-14838448.png"
-
-}
+  99: "src/weatherIcons/free-icon-storm-14838448.png",
+};

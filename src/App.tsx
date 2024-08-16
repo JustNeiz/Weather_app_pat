@@ -4,7 +4,6 @@ import MainPage from "./pages/mainPage.tsx";
 
 const client = new QueryClient();
 function App() {
-
   return (
     <QueryClientProvider client={client}>
       <MainPage />

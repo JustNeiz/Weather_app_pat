@@ -1,17 +1,18 @@
 import { create } from "zustand";
-import { ICityCoordinates } from "../types/ICityCoordinates";
+import { ICoordinates } from "../types/ICoordinates.ts";
 
-type Coordinates ={
-  coordinates: ICityCoordinates,
-  setCoordinates: (newCoordinates: ICityCoordinates)=>void
-}
+type Coordinates = {
+  coordinates: ICoordinates;
+  setCoordinates: (newCoordinates: ICoordinates) => void;
+};
 
-export const useCoordinates = create<Coordinates>((set)=>({
-    coordinates: {
-      longitude: 50.4547,
-      lattitude: 30.5238
-    },
-    setCoordinates: (newCoordinates : ICityCoordinates)=>set(()=>({
-      coordinates: newCoordinates
-    }))
-}))
+export const useCoordinates = create<Coordinates>((set) => ({
+  coordinates: {
+    longitude: 50.4547,
+    lattitude: 30.5238,
+  },
+  setCoordinates: (newCoordinates: ICoordinates) =>
+    set(() => ({
+      coordinates: newCoordinates,
+    })),
+}));

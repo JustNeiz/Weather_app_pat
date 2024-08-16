@@ -1,14 +1,14 @@
-import { Flex } from '@mantine/core';
-import CurrentCity from '../../atoms/CurrentCity/CurrentCity';
-import SearchAutocomplete from '../../atoms/SearchAutocomplete/SearchAutocomplete';
+import { Flex } from "@mantine/core";
+import CurrentCity from "../../atoms/CurrentCity/CurrentCity";
+import SearchAutocomplete from "../../atoms/SearchAutocomplete/SearchAutocomplete";
 
 const SearchMenu = () => {
-    return (
-        <Flex justify="space-between" align="center">
-            <CurrentCity/>
-            <SearchAutocomplete/>
-        </Flex>
-    );
+  return (
+    <Flex justify="space-between" align="center">
+      <CurrentCity />
+      <SearchAutocomplete />
+    </Flex>
+  );
 };
 
 export default SearchMenu;

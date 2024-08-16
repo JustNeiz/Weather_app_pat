@@ -18,15 +18,15 @@ const DailyForecastShortCard: React.FC<DailyShortProps> = ({ dayData }) => {
       h={200}
       justify="space-between"
       align="center"
-      bg="#1B1B1D"
       direction="column"
+      bg="#1B1B1D"
       m={5}
       style={{
         borderRadius: 20,
       }}
       onClick={() => setCurrentDay(date as string)}
     >
-      <Text c="white" fz={22} ta="center" lh={1} fw={700} m={5} >
+      <Text c="white" fz={22} ta="center" lh={1} fw={700} m={5}>
         {date} <br />
       </Text>
       <Image src={imagePath} w={50} h={50} />

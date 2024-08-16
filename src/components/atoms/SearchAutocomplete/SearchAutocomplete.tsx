@@ -7,13 +7,14 @@ import { useCurrentCity } from "../../../store/useCurrentCity";
 import { useCoordinates } from "../../../store/useCoordinates";
 import { IFindCityResponse } from "../../../types/IFindCityResponse";
 import { ICity } from "../../../types/ICity.type";
+import { ICityCoordinates } from "../../../types/ICityCoordinates.ts";
 
 const SearchAutocomplete = () => {
   const { city, setCity } = useCurrentCity();
   const [citiesArray, setCitiesArray] = useState<string[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [debouncedValue] = useDebouncedValue(inputValue, 500);
-  const { setCoordinates } = useCoordinates();
+  const { coordinates, setCoordinates } = useCoordinates();
   const [citiesObjectsArr, setCitiesObjectsArr] = useState<ICity[]>([]);
 
   const { data, error } = useQuery<IFindCityResponse>({
@@ -23,15 +24,13 @@ const SearchAutocomplete = () => {
   });
 
   console.log(data?.results);
-  
 
   useEffect(() => {
     if (data && data.results) {
-      const cityObjects : ICity[] = Array.from(
-        new Map(data.results.map((city : ICity) => [city.name, city])).values()
+      const cityObjects: ICity[] = Array.from(
+        new Map(data.results.map((city: ICity) => [city.name, city])).values(),
       );
-      console.log(cityObjects);
-      
+
       setCitiesObjectsArr(cityObjects);
 
       const uniqueCities = cityObjects.map((item) => item.name);
@@ -41,8 +40,37 @@ const SearchAutocomplete = () => {
       setCitiesArray([]);
     }
   }, [data]);
-  const handleSelect = (item : string) => {
+
+  const setLocalStorage = (city: ICityCoordinates) => {
+    if (localStorage.getItem("cities")) {
+      let citiesHistoryArray: ICityCoordinates[] = JSON.parse(
+        localStorage.getItem("cities"),
+      );
+      if (citiesHistoryArray.length > 19) {
+        citiesHistoryArray.pop();
+      }
+      if (!citiesHistoryArray.includes(city)) {
+        citiesHistoryArray.unshift(city);
+      } else {
+        citiesHistoryArray = citiesHistoryArray.filter((item) => item !== city);
+        citiesHistoryArray.unshift(city);
+        console.log(citiesHistoryArray);
+      }
+      localStorage.setItem("cities", JSON.stringify(citiesHistoryArray));
+    } else {
+      const citiesHistoryArray: ICityCoordinates[] = [city];
+      localStorage.setItem("cities", JSON.stringify(citiesHistoryArray));
+    }
+  };
+
+  const handleSelect = (item: string) => {
     setCity(item);
+    const cityObj: ICityCoordinates = {
+      city: item,
+      latitude: `${coordinates.lattitude}`,
+      longitude: `${coordinates.longitude}`,
+    };
+    setLocalStorage(cityObj);
   };
 
   useEffect(() => {
@@ -51,7 +79,7 @@ const SearchAutocomplete = () => {
         longitude: citiesObjectsArr[0].longitude,
         lattitude: citiesObjectsArr[0].latitude,
       };
-      setCoordinates(cityCoordinates)
+      setCoordinates(cityCoordinates);
     }
   }, [citiesObjectsArr, city, setCoordinates]);
 

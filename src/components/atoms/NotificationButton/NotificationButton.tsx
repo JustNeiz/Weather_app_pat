@@ -11,7 +11,7 @@ const NotificationButton = () => {
       justify="center"
       align="center"
       style={{
-        borderRadius: "10px"
+        borderRadius: "10px",
       }}
     >
       <IconBellFilled />

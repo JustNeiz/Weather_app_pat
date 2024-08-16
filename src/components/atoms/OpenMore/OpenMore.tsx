@@ -12,7 +12,7 @@ const OpenMore = () => {
       justify="center"
       align="center"
       style={{
-        borderRadius: "10px"
+        borderRadius: "10px",
       }}
     >
       <IconAppsFilled />

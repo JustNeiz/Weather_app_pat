@@ -1,4 +1,4 @@
-export interface ICityStore  {
-  city: string,
-  setCity: (newCity : string)=>void
+export interface ICityStore {
+  city: string;
+  setCity: (newCity: string) => void;
 }

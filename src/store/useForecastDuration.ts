@@ -17,13 +17,15 @@ const tomorrowFormatted = format(tomorrow, "YYYY-MM-DD", "en");
 const useForecastDuration = create<DurationState>((set) => ({
   intervalEnd: todayFormatted,
   intervalStart: todayFormatted,
-  setDuration: (newDuration: string | null) => set(() => {
-    const intervalStart = newDuration === tomorrowFormatted ? tomorrowFormatted : todayFormatted;
-    return {
-      intervalEnd: newDuration,
-      intervalStart: intervalStart,
-    };
-  }),
+  setDuration: (newDuration: string | null) =>
+    set(() => {
+      const intervalStart =
+        newDuration === tomorrowFormatted ? tomorrowFormatted : todayFormatted;
+      return {
+        intervalEnd: newDuration,
+        intervalStart: intervalStart,
+      };
+    }),
 }));
 
 export { useForecastDuration };

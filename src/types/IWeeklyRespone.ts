@@ -35,5 +35,3 @@ export interface IWeeklyResponse {
   daily_units: DailyUnits;
   daily: DailyData;
 }
-
-
