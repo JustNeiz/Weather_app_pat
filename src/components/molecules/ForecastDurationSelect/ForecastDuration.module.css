@@ -1,0 +1,13 @@
+.tab {
+    position: relative;
+    color: #a9a9a9;
+    &[data-active] {
+        z-index: 1;
+        border: none;
+        color: white;
+    }
+}
+.tabControl {
+    position: relative;
+    color: grey; /* Цвет для неактивных вкладок */
+}

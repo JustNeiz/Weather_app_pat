@@ -18,6 +18,7 @@ const WorldMap = () => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
 
+
   const [debouncedVisibleBounds] = useDebouncedValue(visibleBounds, 300);
   const [debouncedZoomLevel] = useDebouncedValue(zoomLevel, 300);
 
@@ -35,9 +36,12 @@ const WorldMap = () => {
     return () => {
       window.removeEventListener("resize", updateDimensions);
     };
-  }, []);
 
-  useZoom(svgRef, dimensions, setZoomLevel, setVisibleBounds);
+  }, [wrapperRef.current]);
+
+
+useZoom(svgRef, dimensions, setZoomLevel, setVisibleBounds)
+
 
   const { data: citiesArray} = useQuery<OtherCitiesResponse[]>({
     queryKey: ["citiesForMap", debouncedVisibleBounds, debouncedZoomLevel],
@@ -63,7 +67,7 @@ const WorldMap = () => {
 
     const projection = d3.geoMercator()
       .scale(150)
-      .translate([dimensions.width / 2, dimensions.height / 2]);
+      .translate([dimensions.width /2, dimensions.height / 2]);
 
     const path = d3.geoPath().projection(projection);
 
@@ -80,7 +84,7 @@ const WorldMap = () => {
           .attr("stroke", "#666"); // Цвет границ для карты
       })
     renderWeatherIcons();
-  }, [weatherData, dimensions, zoomLevel, citiesArray]);
+  }, [weatherData, dimensions, zoomLevel, citiesArray])
 
   const renderWeatherIcons = useCallback(() => {
     if (!weatherData || !svgRef.current) return;
@@ -113,7 +117,7 @@ const WorldMap = () => {
   }, [weatherData, dimensions, zoomLevel, citiesArray]);
 
   return (
-    <div ref={wrapperRef} style={{ width: "100%", height: "50vh", border: "1px lightgrey solid", borderRadius: '10px'}}>
+    <div ref={wrapperRef}  style={{ width: "100%", height: "50vh", border: "1px lightgrey solid", borderRadius: '10px' }}>
       <svg ref={svgRef} style={{ width: "100%", height: "100%" }}>
         <g />
       </svg>

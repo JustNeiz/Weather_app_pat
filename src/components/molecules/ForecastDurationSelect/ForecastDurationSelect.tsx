@@ -1,5 +1,5 @@
 import { Tabs, Text } from "@mantine/core";
-import css from "./ForecastDurationSelect.module.css";
+import css from './ForecastDuration.module.css'
 import { useForecastDuration } from "../../../store/useForecastDuration";
 import { format } from "@formkit/tempo";
 

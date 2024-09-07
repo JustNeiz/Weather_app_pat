@@ -2,7 +2,6 @@ import { Flex } from "@mantine/core";
 import { IconAppsFilled } from "@tabler/icons-react";
 
 const OpenMore = () => {
-  console.log("hi from buttn");
   return (
     <Flex
       bg="#1E1E1E"

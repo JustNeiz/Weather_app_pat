@@ -20,7 +20,7 @@ const otherCitiesApi = axios.create({
   responseType: "json",
   headers:{
     Accept: "application/json",
-    'x-api-key': 'mNRXqAjnHiZ8i7bcUdqojg==8OJnbO3YDnqhrNQW'
+    // 'x-api-key': 'mNRXqAjnHiZ8i7bcUdqojg==8OJnbO3YDnqhrNQW'
 
   }
 })
