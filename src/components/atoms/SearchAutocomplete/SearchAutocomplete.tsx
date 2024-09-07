@@ -6,16 +6,16 @@ import { findCityService } from "../../../services/findCityService";
 import { useCurrentCity } from "../../../store/useCurrentCity";
 import { useCoordinates } from "../../../store/useCoordinates";
 import { IFindCityResponse } from "../../../types/IFindCityResponse";
-import { ICity } from "../../../types/ICity.type";
 import { ICityCoordinates } from "../../../types/ICityCoordinates.ts";
+import { ICoordinates } from "../../../types/ICoordinates.ts";
+import { updateLocalStorage } from "../../../helpers/updateLocalStorage.ts";
 
 const SearchAutocomplete = () => {
-  const { city, setCity } = useCurrentCity();
-  const [citiesArray, setCitiesArray] = useState<string[]>([]);
+  const [citiesArray, setCitiesArray] = useState<{ label: string; value: string }[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [debouncedValue] = useDebouncedValue(inputValue, 500);
-  const { coordinates, setCoordinates } = useCoordinates();
-  const [citiesObjectsArr, setCitiesObjectsArr] = useState<ICity[]>([]);
+  const { setCity } = useCurrentCity();
+  const { setCoordinates } = useCoordinates();
 
   const { data, error } = useQuery<IFindCityResponse>({
     queryKey: ["citiesArr", debouncedValue],
@@ -25,69 +25,43 @@ const SearchAutocomplete = () => {
 
   useEffect(() => {
     if (data && data.results) {
-      const cityObjects: ICity[] = Array.from(
-        new Map(data.results.map((city: ICity) => [city.name, city])).values(),
-      );
+      const formattedCities = data.results.map((item) => {
+        console.log(item);
+        return {
+        label: `${item.name}${item?.country ? (', ' + item.country) : ''}${item?.admin1 ?  (', ' + item.admin1) : ''}`,
+        value: `${item.name}_${item.latitude}_${item.longitude}`
+      }});
 
-      setCitiesObjectsArr(cityObjects);
-
-      const uniqueCities = cityObjects.map((item) => item.name);
-      setCitiesArray(uniqueCities);
+      setCitiesArray(formattedCities);
     } else {
       setCitiesArray([]);
     }
   }, [data]);
 
-  const setLocalStorage = (city: ICityCoordinates) => {
-    const citiesHistory = localStorage.getItem("cities");
 
-    let citiesHistoryArray: ICityCoordinates[] = citiesHistory
-      ? JSON.parse(citiesHistory)
-      : [];
 
-    if (citiesHistoryArray.length > 19) {
-      citiesHistoryArray.pop();
-    }
-
-    if (!citiesHistoryArray.includes(city)) {
-      citiesHistoryArray.unshift(city);
-    } else {
-      citiesHistoryArray = citiesHistoryArray.filter((item) => item !== city);
-      citiesHistoryArray.unshift(city);
-    }
-
-    localStorage.setItem("cities", JSON.stringify(citiesHistoryArray));
-  };
-
-  const handleSelect = (item: string | null) => {
+  const handleSelect = (item: string) => {
     if (item) {
-      // Убедитесь, что item не null
-      setCity(item);
+      const [cityName, lat, lon] = item.split("_")
+
       const cityObj: ICityCoordinates = {
-        city: item,
-        latitude: `${coordinates.lattitude}`,
-        longitude: `${coordinates.longitude}`,
+        city: cityName,
+        latitude: lat,
+        longitude: lon,
       };
-      setLocalStorage(cityObj);
+
+      const cityCoordinates: ICoordinates ={
+        longitude: +lon,
+        latitude: +lat,
+      }
+      setCity(cityName);
+      updateLocalStorage(cityObj);
+      setCoordinates(cityCoordinates)
+      setInputValue(' ');
     }
   };
-
-  useEffect(() => {
-    if (
-      city &&
-      citiesObjectsArr.length > 0 &&
-      city === citiesObjectsArr[0]?.name
-    ) {
-      const cityCoordinates = {
-        longitude: citiesObjectsArr[0].longitude,
-        lattitude: citiesObjectsArr[0].latitude,
-      };
-      setCoordinates(cityCoordinates);
-    }
-  }, [citiesObjectsArr, city, setCoordinates]);
-
   return (
-    <Flex align="center" h={40} m={10}>
+    <Flex align="center" >
       <Autocomplete
         data={citiesArray}
         value={inputValue}

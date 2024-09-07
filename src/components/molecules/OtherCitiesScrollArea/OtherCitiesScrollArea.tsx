@@ -4,14 +4,18 @@ import { useQuery } from "@tanstack/react-query";
 import { otherCitiesService } from "../../../services/otherCitiesService.ts";
 import { OtherCitiesResponse } from "../../../types/OtherCitiesResponse.ts";
 import OtherCityCard from "../OtherCityCard/OtherCityCard.tsx";
+import { transformOtherCitiesData } from "../../../helpers/transformOtherCitiesData.ts";
+import { useEffect, useState } from "react";
+import { useOtherCitiesWatcher } from "../../../store/useOtherCitiesWatcher.ts";
 
 const OtherCitiesScrollArea = () => {
+  const [citiesHistoryArray, setCitiesHistoryArray] = useState<ICityCoordinates[]>([]);
+  const {watcher} = useOtherCitiesWatcher();
+
   let latitudes = "";
   let longitudes = "";
 
-  const citiesHistoryArray: ICityCoordinates[] = JSON.parse(
-    localStorage.getItem("cities") || "[]",
-  );
+
 
   if (citiesHistoryArray.length) {
     latitudes = citiesHistoryArray.map((city) => city.latitude).join(",");
@@ -19,25 +23,23 @@ const OtherCitiesScrollArea = () => {
   }
 
   const { data } = useQuery<OtherCitiesResponse[]>({
-    queryKey: ["otherCities", latitudes, longitudes],
+    queryKey: ["otherCities", latitudes, longitudes, citiesHistoryArray],
     queryFn: () => otherCitiesService(latitudes, longitudes),
     enabled: !!longitudes && !!latitudes,
   });
 
+const transformedData = transformOtherCitiesData(data, citiesHistoryArray);
+  useEffect(() => {
+    setCitiesHistoryArray(JSON.parse(
+      localStorage.getItem("cities") || "[]",
+    ))
+  }, [watcher]);
   return (
-    <ScrollArea scrollbars={"y"} w={"100%"}>
-      {data?.map((city, index) => {
-        const cityName = citiesHistoryArray[index].city;
-        return (
-          <OtherCityCard
-            city={cityName}
-            temperature_2m={`${city.current.temperature_2m}`}
-            weather_code={`${city.current.weather_code}`}
-            latitude={`${city.latitude}`}
-            longitude={`${city.longitude}`}
-          />
-        );
-      })}
+    <ScrollArea scrollbars={"y"} w={"100%"} h={'50vh'}  px={10} style={{ border: '1px lightgrey solid',
+      borderRadius: '10px', overflow: 'hidden'}} >
+      {transformedData.map((city, index) =>
+          <OtherCityCard cityData={city} key={index}/>
+      )}
     </ScrollArea>
   );
 };

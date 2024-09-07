@@ -8,8 +8,8 @@ type Coordinates = {
 
 export const useCoordinates = create<Coordinates>((set) => ({
   coordinates: {
-    longitude: 50.4547,
-    lattitude: 30.5238,
+    longitude: 30.5238,
+    latitude: 50.45466,
   },
   setCoordinates: (newCoordinates: ICoordinates) =>
     set(() => ({

@@ -1,6 +1,11 @@
-import css from "./MapContainer.module.css";
+import WeatherMap from "../../molecules/WeatherMap/WeatherMap.tsx";
+import { Flex } from "@mantine/core";
 const MapContainer = () => {
-  return <div className={css.MapContainer}></div>;
+  return(
+    <Flex w={'100%'}  >
+      <WeatherMap/>
+    </Flex>
+  );
 };
 
 export default MapContainer;

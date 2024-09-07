@@ -4,7 +4,7 @@ import { Flex } from "@mantine/core";
 
 const NavMenu = () => {
   return (
-    <Flex ml={10} mt={5}>
+    <Flex >
       <OpenMore />
       <NotificationButton />
     </Flex>

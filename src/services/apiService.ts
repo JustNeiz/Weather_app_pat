@@ -1,5 +1,5 @@
 import axios from "axios";
-import { cityUrl, forecastUrl } from "../constants/constants.ts";
+import { cityUrl, forecastUrl, otherCitiesURl } from "../constants/constants.ts";
 
 const forecastApi = axios.create({
   baseURL: forecastUrl,
@@ -15,4 +15,14 @@ const cityApi = axios.create({
     Accept: "application/json",
   },
 });
-export { forecastApi, cityApi };
+const otherCitiesApi = axios.create({
+  baseURL: otherCitiesURl,
+  responseType: "json",
+  headers:{
+    Accept: "application/json",
+    'x-api-key': 'mNRXqAjnHiZ8i7bcUdqojg==8OJnbO3YDnqhrNQW'
+
+  }
+})
+
+export { forecastApi, cityApi, otherCitiesApi };

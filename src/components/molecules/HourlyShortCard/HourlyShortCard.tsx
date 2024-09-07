@@ -20,8 +20,10 @@ const HourlyShortCard: React.FC<IHourlyProps> = ({ hourlyProps }) => {
       bg="#1B1B1D"
       direction="column"
       m={5}
+      py={10}
       style={{
         borderRadius: 20,
+        cursor: 'pointer'
       }}
       onClick={() => setTime(time)}
     >

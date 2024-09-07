@@ -1,13 +1,8 @@
 html {
-  background-color: #292829;
+  background-color: #111015;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #292829;
-}
+

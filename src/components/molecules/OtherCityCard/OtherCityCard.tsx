@@ -3,17 +3,18 @@ import { IOtherCityProps } from "../../../types/IOtherCityProps.ts";
 import { weatherCodes } from "../../../constants/weatherCodesConstants.ts";
 import { useCurrentCity } from "../../../store/useCurrentCity.ts";
 import { useCoordinates } from "../../../store/useCoordinates.ts";
+import React from "react";
+import { updateLocalStorage } from "../../../helpers/updateLocalStorage.ts";
 
-const OtherCityCard: React.FC<IOtherCityProps> = (otherCityProps) => {
-  const { city, temperature_2m, weather_code, longitude, latitude } =
-    otherCityProps;
+const  OtherCityCard: React.FC<IOtherCityProps> = ({ cityData }) => {
+  const { city, temperature_2m, weather_code, longitude, latitude } = cityData;
   let imagePath = "";
   if (weather_code in weatherCodes) {
     imagePath = weatherCodes[weather_code];
   }
   const newCoordinates = {
     longitude: +longitude,
-    lattitude: +latitude,
+    latitude: +latitude,
   };
 
   const { setCity } = useCurrentCity();
@@ -21,20 +22,24 @@ const OtherCityCard: React.FC<IOtherCityProps> = (otherCityProps) => {
   const handleClick = () => {
     setCity(city);
     setCoordinates(newCoordinates);
+    updateLocalStorage({city, longitude, latitude});
   };
   return (
     <Flex
       w={"100%"}
       c={"white"}
       bg="#1B1B1D"
-      mt={15}
-      p={10}
+      mb={15}
+      py={10}
+      px={20}
       style={{
         borderRadius: 20,
+        cursor: "pointer",
       }}
       justify={"space-between"}
       align={"center"}
       onClick={handleClick}
+
     >
       <Flex>
         <Text fw={600} fz={24}>

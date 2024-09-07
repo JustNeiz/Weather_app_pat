@@ -6,7 +6,6 @@ const NotificationButton = () => {
       bg="#1E1E1E"
       w={40}
       h={40}
-      m={10}
       c="white"
       justify="center"
       align="center"

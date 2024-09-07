@@ -8,11 +8,15 @@ const ForecastDurationSelect = () => {
   const today = new Date();
   const tomorrow = new Date();
   const weekly = new Date();
+
   tomorrow.setDate(today.getDate() + 1);
   weekly.setDate(today.getDate() + 6);
+
   const todayFormatted = format(today, "YYYY-MM-DD", "en");
   const tomorrowFormatted = format(tomorrow, "YYYY-MM-DD", "en");
   const weeklyFormatted = format(weekly, "YYYY-MM-DD", "en");
+
+
 
   return (
     <Tabs

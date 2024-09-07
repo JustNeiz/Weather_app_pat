@@ -5,8 +5,7 @@ import OtherCitiesScrollArea from "../../molecules/OtherCitiesScrollArea/OtherCi
 const RainOtherCities = () => {
   return (
     <Flex
-      w={"25%"}
-      h={"100%"}
+      w={"100%"}
       direction={"column"}
       justify={"space-between"}
       align={"center"}
