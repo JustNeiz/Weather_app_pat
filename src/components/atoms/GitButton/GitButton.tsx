@@ -1,7 +1,7 @@
 import { Flex } from "@mantine/core";
 import {IconBrandGithub} from "@tabler/icons-react";
 
-const UserMenu = () => {
+const GitButton = () => {
   const handleClick = () => window.location.href = 'https://github.com/JustNeiz/Weather_app_pat'
   return (
     <Flex w={'100%'} justify={'flex-end'} onClick={handleClick} style={{cursor: 'pointer'}}>
@@ -23,4 +23,4 @@ const UserMenu = () => {
 };
 
 
-export default UserMenu;
+export default GitButton;

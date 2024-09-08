@@ -2,11 +2,11 @@ import { Flex, Grid } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import ForecastContainer from "../../organisms/ForecastContainer/ForecastContainer.tsx";
 import MapContainer from "../../organisms/MapContainer/MapContainer.tsx";
-import RainProbabilityChart from "../../atoms/RainProbabilityChart/RainProbabilityChart.tsx";
-import OtherCitiesScrollArea from "../../molecules/OtherCitiesScrollArea/OtherCitiesScrollArea.tsx";
+import RainProbabilityChart from "../../organisms/RainProbabilityChart/RainProbabilityChart.tsx";
+import OtherCitiesScrollArea from "../../organisms/OtherCitiesScrollArea/OtherCitiesScrollArea.tsx";
 import NavMenu from "../../molecules/NavMenu/NavMenu.tsx";
 import SearchMenu from "../../molecules/SearchMenu/SearchMenu.tsx";
-import UserMenu from "../../molecules/UserMenu/UserMenu.tsx";
+import GitButton from "../../atoms/GitButton/GitButton.tsx";
 
 const Dashboard = () => {
   const isLargeScreen = useMediaQuery('(min-width: 1280px)');
@@ -20,7 +20,7 @@ const Dashboard = () => {
         </Flex>
       </Grid.Col>
       <Grid.Col span={isLargeScreen ? 4 : 4}>
-        <UserMenu />
+        <GitButton />
       </Grid.Col>
 
       <Grid.Col span={isLargeScreen ? 8 : 12}>

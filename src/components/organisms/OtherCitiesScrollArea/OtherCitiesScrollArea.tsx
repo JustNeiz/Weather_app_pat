@@ -3,7 +3,7 @@ import { ICityCoordinates } from "../../../types/ICityCoordinates.ts";
 import { useQuery } from "@tanstack/react-query";
 import { otherCitiesService } from "../../../services/otherCitiesService.ts";
 import { OtherCitiesResponse } from "../../../types/OtherCitiesResponse.ts";
-import OtherCityCard from "../OtherCityCard/OtherCityCard.tsx";
+import OtherCityCard from "../../molecules/OtherCityCard/OtherCityCard.tsx";
 import { transformOtherCitiesData } from "../../../helpers/transformOtherCitiesData.ts";
 import { useEffect, useState } from "react";
 import { useOtherCitiesWatcher } from "../../../store/useOtherCitiesWatcher.ts";

@@ -1,4 +1,4 @@
-import Dashboard from "../components/pages/MainPage/Dashboard.tsx";
+import Dashboard from "../components/pages/Dashboard/Dashboard.tsx";
 import { Flex } from "@mantine/core";
 import { setDefaultOtherCities } from "../helpers/setDefaultOtherCities.ts";
 
