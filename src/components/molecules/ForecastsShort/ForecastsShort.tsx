@@ -1,4 +1,4 @@
-import { Flex, Loader } from "@mantine/core";
+import { Flex, Loader, ScrollArea } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { forecastService } from "../../../services/forecastService";
 import { useForecastDuration } from "../../../store/useForecastDuration";
@@ -36,7 +36,8 @@ const ForecastsShort = () => {
   }
 
   return (
-    <Flex justify="space-between">
+    <ScrollArea w={'100%'}>
+    <Flex justify="space-between" w={'100%'}>
       {transformedData.map((dayData, index) => (
         dayData.date === currentDay ? (
           <DailyForecastFullCard key={index} dayData={dayData} />
@@ -45,6 +46,8 @@ const ForecastsShort = () => {
         )
       ))}
     </Flex>
+    </ScrollArea>
+
   );
 };
 

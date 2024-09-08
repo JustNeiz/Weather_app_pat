@@ -1,5 +1,5 @@
 import { Autocomplete, Flex } from "@mantine/core";
-import { useDebouncedValue } from "@mantine/hooks";
+import { useDebouncedValue, useMediaQuery } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { findCityService } from "../../../services/findCityService";
@@ -60,6 +60,7 @@ const SearchAutocomplete = () => {
       setInputValue(' ');
     }
   };
+  const isLargeScreen = useMediaQuery('(min-width: 1280px)')
   return (
     <Flex align="center" >
       <Autocomplete
@@ -67,7 +68,7 @@ const SearchAutocomplete = () => {
         value={inputValue}
         onChange={setInputValue}
         onOptionSubmit={handleSelect}
-        w={300}
+        w={isLargeScreen ? 300 : 200}
         placeholder="Start input city"
         radius="md"
         c="white"

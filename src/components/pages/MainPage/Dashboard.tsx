@@ -14,7 +14,7 @@ const Dashboard = () => {
   return (
     <Grid h={'100vh'} gutter={"xl"}>
       <Grid.Col span={isLargeScreen ? 8 : 8}>
-        <Flex  justify={'space-between'} >
+        <Flex  justify={'space-between'} wrap={'wrap'} w={'100%'}>
           <NavMenu />
           <SearchMenu />
         </Flex>

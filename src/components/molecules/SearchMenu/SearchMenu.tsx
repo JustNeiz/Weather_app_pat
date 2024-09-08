@@ -4,7 +4,7 @@ import SearchAutocomplete from "../../atoms/SearchAutocomplete/SearchAutocomplet
 
 const SearchMenu = () => {
   return (
-    <Flex justify="space-between" align="center">
+    <Flex justify="space-between" align="center" w={'100%'}>
       <CurrentCity />
       <SearchAutocomplete />
     </Flex>
