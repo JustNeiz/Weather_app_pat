@@ -29,16 +29,21 @@ const RainProbabilityChart = () => {
   });
 
   return (
-    <Flex direction={"column"} align={"flex-start"} w={"100%"} mr={35} style={{
-      border: '1px lightgrey solid',
-      borderRadius: '10px'
-    }}>
-      <Text ml={23} c={"white"} fw={600}   >
+    <Flex
+      direction={"column"}
+      align={"flex-start"}
+      w={"100%"}
+      mr={35}
+      style={{
+        border: "1px lightgrey solid",
+        borderRadius: "10px",
+      }}
+    >
+      <Text ml={23} c={"white"} fw={600}>
         Precipitation probability
       </Text>
 
       <BarChart
-
         data={probabilityData}
         dataKey={"time"}
         series={[{ name: "probability", color: "#BBD6EC" }]}
@@ -49,8 +54,6 @@ const RainProbabilityChart = () => {
         barProps={{ radius: 10, barSize: 10 }} // Сюда передать пропсы с речартса
         yAxisProps={{ domain: [0, 100] }}
         withTooltip={false}
-
-
       />
     </Flex>
   );

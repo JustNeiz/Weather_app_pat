@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from "react";
 import { Flex, ScrollArea, Loader, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { dailyForecastService } from "../../../services/dailyForecastService.ts";
@@ -18,7 +18,7 @@ const DailyForecast = () => {
   const { city } = useCurrentCity();
   const isQueryEnabled = coordinates && intervalEnd;
 
-  const { data, isLoading} = useQuery<IDailyForecastResponse>({
+  const { data, isLoading } = useQuery<IDailyForecastResponse>({
     queryKey: ["dailyForecast", intervalEnd, intervalStart, coordinates, city],
     queryFn: () =>
       dailyForecastService(
@@ -35,15 +35,15 @@ const DailyForecast = () => {
   useEffect(() => {
     if (data && time && scrollAreaRef.current && hourlyFullCardRef.current) {
       hourlyFullCardRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'center'
+        behavior: "smooth",
+        block: "start",
+        inline: "center",
       });
     }
   }, [data, time]);
 
   if (isLoading) {
-    return <Loader color="gray" size="xl" type="dots" w={'100%'}/>;
+    return <Loader color="gray" size="xl" type="dots" w={"100%"} />;
   }
 
   const transformedData = transformForecastData(data);
@@ -52,17 +52,17 @@ const DailyForecast = () => {
     <ScrollArea scrollbars="x" w="100%" ref={scrollAreaRef}>
       <Flex justify="space-between">
         {transformedData.length === 0 ? (
-          <Text>Нет доступных данных для отображения.</Text>
+          <Text>No data</Text>
         ) : (
-          transformedData.map((hourData, index) => (
+          transformedData.map((hourData, index) =>
             hourData.time === time ? (
               <div ref={hourlyFullCardRef} key={index}>
                 <HourlyFullCard hourlyProps={hourData} />
               </div>
             ) : (
               <HourlyShortCard key={index} hourlyProps={hourData} />
-            )
-          ))
+            ),
+          )
         )}
       </Flex>
     </ScrollArea>

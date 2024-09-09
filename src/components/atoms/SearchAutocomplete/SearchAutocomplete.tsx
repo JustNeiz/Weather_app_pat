@@ -11,7 +11,9 @@ import { ICoordinates } from "../../../types/ICoordinates.ts";
 import { updateLocalStorage } from "../../../helpers/updateLocalStorage.ts";
 
 const SearchAutocomplete = () => {
-  const [citiesArray, setCitiesArray] = useState<{ label: string; value: string }[]>([]);
+  const [citiesArray, setCitiesArray] = useState<
+    { label: string; value: string }[]
+  >([]);
   const [inputValue, setInputValue] = useState("");
   const [debouncedValue] = useDebouncedValue(inputValue, 500);
   const { setCity } = useCurrentCity();
@@ -28,9 +30,10 @@ const SearchAutocomplete = () => {
       const formattedCities = data.results.map((item) => {
         console.log(item);
         return {
-        label: `${item.name}${item?.country ? (', ' + item.country) : ''}${item?.admin1 ?  (', ' + item.admin1) : ''}`,
-        value: `${item.name}_${item.latitude}_${item.longitude}`
-      }});
+          label: `${item.name}${item?.country ? ", " + item.country : ""}${item?.admin1 ? ", " + item.admin1 : ""}`,
+          value: `${item.name}_${item.latitude}_${item.longitude}`,
+        };
+      });
 
       setCitiesArray(formattedCities);
     } else {
@@ -38,11 +41,9 @@ const SearchAutocomplete = () => {
     }
   }, [data]);
 
-
-
   const handleSelect = (item: string) => {
     if (item) {
-      const [cityName, lat, lon] = item.split("_")
+      const [cityName, lat, lon] = item.split("_");
 
       const cityObj: ICityCoordinates = {
         city: cityName,
@@ -50,19 +51,20 @@ const SearchAutocomplete = () => {
         longitude: lon,
       };
 
-      const cityCoordinates: ICoordinates ={
+      const cityCoordinates: ICoordinates = {
         longitude: +lon,
         latitude: +lat,
-      }
+      };
       setCity(cityName);
       updateLocalStorage(cityObj);
-      setCoordinates(cityCoordinates)
-      setInputValue(' ');
+      setCoordinates(cityCoordinates);
+      setInputValue(" ");
     }
   };
-  const isLargeScreen = useMediaQuery('(min-width: 1280px)')
+
+  const isLargeScreen = useMediaQuery("(min-width: 1280px)");
   return (
-    <Flex align="center" >
+    <Flex align="center">
       <Autocomplete
         data={citiesArray}
         value={inputValue}

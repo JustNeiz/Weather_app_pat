@@ -6,12 +6,13 @@ import { useCoordinates } from "../../../store/useCoordinates.ts";
 import React from "react";
 import { updateLocalStorage } from "../../../helpers/updateLocalStorage.ts";
 
-const  OtherCityCard: React.FC<IOtherCityProps> = ({ cityData }) => {
+const OtherCityCard: React.FC<IOtherCityProps> = ({ cityData }) => {
   const { city, temperature_2m, weather_code, longitude, latitude } = cityData;
   let imagePath = "";
   if (weather_code in weatherCodes) {
     imagePath = weatherCodes[weather_code];
   }
+
   const newCoordinates = {
     longitude: +longitude,
     latitude: +latitude,
@@ -22,8 +23,9 @@ const  OtherCityCard: React.FC<IOtherCityProps> = ({ cityData }) => {
   const handleClick = () => {
     setCity(city);
     setCoordinates(newCoordinates);
-    updateLocalStorage({city, longitude, latitude});
+    updateLocalStorage({ city, longitude, latitude });
   };
+
   return (
     <Flex
       w={"100%"}
@@ -39,7 +41,6 @@ const  OtherCityCard: React.FC<IOtherCityProps> = ({ cityData }) => {
       justify={"space-between"}
       align={"center"}
       onClick={handleClick}
-
     >
       <Flex>
         <Text fw={600} fz={24}>

@@ -10,7 +10,6 @@ const DailyForecastShortCard: React.FC<DailyShortProps> = ({ dayData }) => {
     imagePath = weatherCodes[weatherCode];
   }
 
-
   return (
     <Flex
       w={100}
@@ -23,7 +22,7 @@ const DailyForecastShortCard: React.FC<DailyShortProps> = ({ dayData }) => {
       py={10}
       style={{
         borderRadius: 20,
-        cursor: 'pointer'
+        cursor: "pointer",
       }}
       onClick={() => setCurrentDay(date as string)}
     >

@@ -25,8 +25,7 @@ const DailyForecastFullCard: React.FC<DailyShortProps> = ({ dayData }) => {
 
   const now = new Date();
 
-
-  const time = format(now, 'HH:mm');
+  const time = format(now, "HH:mm");
   const formatSunrise = format(sunrise, "HH:mm");
   const formatSunset = format(sunset, "HH:mm");
 

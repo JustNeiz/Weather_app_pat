@@ -9,13 +9,13 @@ import { useEffect, useState } from "react";
 import { useOtherCitiesWatcher } from "../../../store/useOtherCitiesWatcher.ts";
 
 const OtherCitiesScrollArea = () => {
-  const [citiesHistoryArray, setCitiesHistoryArray] = useState<ICityCoordinates[]>([]);
-  const {watcher} = useOtherCitiesWatcher();
+  const [citiesHistoryArray, setCitiesHistoryArray] = useState<
+    ICityCoordinates[]
+  >([]);
+  const { watcher } = useOtherCitiesWatcher();
 
   let latitudes = "";
   let longitudes = "";
-
-
 
   if (citiesHistoryArray.length) {
     latitudes = citiesHistoryArray.map((city) => city.latitude).join(",");
@@ -28,18 +28,26 @@ const OtherCitiesScrollArea = () => {
     enabled: !!longitudes && !!latitudes,
   });
 
-const transformedData = transformOtherCitiesData(data, citiesHistoryArray);
+  const transformedData = transformOtherCitiesData(data, citiesHistoryArray);
   useEffect(() => {
-    setCitiesHistoryArray(JSON.parse(
-      localStorage.getItem("cities") || "[]",
-    ))
+    setCitiesHistoryArray(JSON.parse(localStorage.getItem("cities") || "[]"));
   }, [watcher]);
+
   return (
-    <ScrollArea scrollbars={"y"} w={"100%"} h={'50vh'}  px={10} style={{ border: '1px lightgrey solid',
-      borderRadius: '10px', overflow: 'hidden'}} >
-      {transformedData.map((city, index) =>
-          <OtherCityCard cityData={city} key={index}/>
-      )}
+    <ScrollArea
+      scrollbars={"y"}
+      w={"100%"}
+      h={"50vh"}
+      px={10}
+      style={{
+        border: "1px lightgrey solid",
+        borderRadius: "10px",
+        overflow: "hidden",
+      }}
+    >
+      {transformedData.map((city, index) => (
+        <OtherCityCard cityData={city} key={index} />
+      ))}
     </ScrollArea>
   );
 };
